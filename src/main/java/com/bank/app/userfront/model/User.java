@@ -1,4 +1,4 @@
-package com.bank.app.userfront.domain;
+package com.bank.app.userfront.model;
 
 import java.util.List;
 
