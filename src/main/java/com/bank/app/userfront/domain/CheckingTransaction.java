@@ -1,12 +1,17 @@
 package com.bank.app.userfront.domain;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
 /**
  * Created by Bhaskar on 3/2/2017.
  */
+@Entity
 public class CheckingTransaction {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Date date;
     private String description;
@@ -14,6 +19,9 @@ public class CheckingTransaction {
     private String status;
     private double amount;
     private BigDecimal availableBalance;
+
+    @ManyToOne
+    @JoinColumn(name = "checking_account_id")
     private CheckingAccount checkingAccount;
 
     public CheckingTransaction() {

@@ -1,24 +1,43 @@
 package com.bank.app.userfront.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.List;
 
 /**
  * Created by Bhaskar on 3/2/2017.
  */
+@Entity
 public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "userId", nullable = false, updatable = false)
     private Long userId;
     private String username;
     private String password;
     private String firstName;
     private String lastName;
+
+    @Column(name = "email",nullable = false, updatable = false)
     private String email;
     private String phone;
 
     private boolean enabled = true;
 
+    @OneToOne
     private CheckingAccount checkingAccount;
+
+    @OneToOne
     private SavingsAccount savingsAccount;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Appointment> appointmentList;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Recipient> recipientList;
 
     public Long getUserId() {
